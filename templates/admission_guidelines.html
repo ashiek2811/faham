@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+</head>
+<body>
+    <header>
+        <h1>Unity Public School</h1>
+        <h2>Admission Guidelines</h2>
+
+    </header>
+
+    <div class="container">
+        <div class="master-list">
+            <ul class="list-group">
+                <li class="list-group-item" onclick="showDetail('online-admission')">Online Admission Guidelines</li>
+                <li class="list-group-item" onclick="showDetail('age-criteria')">Age Criteria</li>
+                <!-- Add more items as needed -->
+            </ul>
+        </div>
+        
+        <div class="detail-view" id="detailView">
+            <!-- Detail content will be injected here -->
+        </div>
+    </div>
+{% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dark mode toggle
+            const toggleButton = document.querySelector('.toggle-mode');
+            toggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                toggleButton.textContent = document.body.classList.contains('dark-mode') ? '🌞' : '🌙';
+            });
+        });
+
+        // Function to show detail view
+        function showDetail(guideline) {
+            const detailView = document.getElementById('detailView');
+            let content = '';
+
+            if (guideline === 'online-admission') {
+                content = `
+                    <h4>Online Admission Guidelines</h4>
+                    <p>Dear Parent, we are thrilled to welcome prospective parents and students to our esteemed institution. Applying for admission at Unity Public School is a seamless process designed to provide the best experience for you and your child.</p>
+                    <h5>Steps for Online Admission</h5>
+                    <ul>
+                        <li>Complete the online application form.</li>
+                        <li>Upload required documents.</li>
+                        <li>Pay the application fee online.</li>
+                        <li>Submit the application.</li>
+                    </ul>
+                    <p>Make sure to keep track of your application status through our online portal.</p>
+                `;
+            } else if (guideline === 'age-criteria') {
+                content = `
+                    <h4>Age Criteria</h4>
+                    <p>For the academic year 2024-2025, the age criteria for admission are as follows:</p>
+                    <ul>
+                        <li>Nursery: 2.5 to 3.5 years</li>
+                        <li>KG: 3.5 to 5 years</li>
+                        <li>Grade 1: 5 to 6 years</li>
+                        <li>Grade 2: 6 to 7 years</li>
+                    </ul>
+                `;
+            }
+
+            detailView.innerHTML = content;
+            detailView.style.display = 'block'; // Show detail view
+        }
+    </script>
+</body>
+</html>

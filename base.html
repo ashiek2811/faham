@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Website with Animated Effects</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">UNITY PUBLIC SCHOOL</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="admissionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Admission
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="admissionDropdown">
+                        <li><a class="dropdown-item" href="/admission">Admission </a></li>
+                        <li><a class="dropdown-item" href="/admission_guidelines">Admission Guidelines</a></li>
+                        <li><a class="dropdown-item" href="/student_policies">Student Policies</a></li>
+                        <li><a class="dropdown-item" href="/transport_policies">Transport Policies</a></li>
+                        <li><a class="dropdown-item" href="/school_fee">School Fee</a></li>
+                        <li><a class="dropdown-item" href="/parents_portal">Parents Portal</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="academicDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Academic
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="academicDropdown">
+                        <li><a class="dropdown-item" href="/academic">Academic</a></li>
+                        <li><a class="dropdown-item" href="/curriculum">Curriculum</a></li>
+                        <li><a class="dropdown-item" href="/syllabus">Syllabus</a></li>
+                        <li><a class="dropdown-item" href="/study_material">Study Material</a></li>
+                        <li><a class="dropdown-item" href="/our_team">Our Team</a></li>
+                        <li><a class="dropdown-item" href="/our_methodology">Our Methodology</a></li>
+                        <li><a class="dropdown-item" href="/competition">Competition</a></li>
+                        <li><a class="dropdown-item" href="/circulars">Circulars</a></li>
+                        <li><a class="dropdown-item" href="/examination">Examination</a></li>
+                        <li><a class="dropdown-item" href="/academic_plan">Academic Plan</a></li>
+                        <li><a class="dropdown-item" href="/picture_gallery">Picture Gallery</a></li>
+                        <li><a class="dropdown-item" href="/principal_talk">Principal Talk To Parents</a></li>
+                        <li><a class="dropdown-item" href="/teacher_talk">Teacher Talk To Parents</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/alumni">Alumni</a></li>
+                <li class="nav-item"><a class="nav-link" href="/careers">Careers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/facilities">Facilities</a></li>
+                <li class="nav-item"><a class="nav-link" href="/extra_activities">Extra Activities</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chatbot - Unity Public School</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background: linear-gradient(135deg, #e3ffe7, #d9e7ff);
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }
+    
+            /* Chatbot toggle button */
+            .chatbot {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                background-color: #007bff;
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 28px;
+                cursor: pointer;
+                box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease, background-color 0.3s ease;
+            }
+    
+            .chatbot:hover {
+                transform: scale(1.1);
+                background-color: #0056b3;
+            }
+    
+            /* Chat Window */
+            #chatWindow {
+                position: fixed;
+                bottom: 80px;
+                right: 20px;
+                width: 360px;
+                background-color: #ffffff;
+                border: 1px solid #007bff;
+                border-radius: 10px;
+                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+                overflow: hidden;
+                display: none;
+                animation: fadeIn 0.5s ease;
+                z-index: 1000; /* Ensure chat window is on top */
+            }
+    
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+    
+            /* Chat Header */
+            .chat-header {
+                background-color: #007bff;
+                color: white;
+                padding: 12px;
+                font-weight: bold;
+                text-align: center;
+                font-size: 18px;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+    
+            /* Chat Body */
+            #chatBody {
+                max-height: 400px;
+                overflow-y: auto;
+                padding: 15px;
+                background: #f4f4f9;
+                color: #444;
+            }
+    
+            /* Messages */
+            .chat-message {
+                margin: 5px 0;
+                font-size: 15px;
+                padding: 10px 12px;
+                border-radius: 10px;
+                max-width: 75%;
+                line-height: 1.4;
+                position: relative;
+            }
+    
+            .user {
+                text-align: right;
+                background-color: #007bff;
+                color: white;
+                margin-left: auto;
+                border-radius: 10px 10px 0 10px;
+            }
+    
+            .bot {
+                text-align: left;
+                background-color: #e9ecef;
+                color: #333;
+                border-radius: 10px 10px 10px 0;
+            }
+    
+            /* Input box styling */
+            #chatInput {
+                border: 1px solid #007bff;
+                border-radius: 5px;
+                padding: 10px;
+                width: calc(100% - 24px); /* Adjust width to fit within padding */
+                margin: 10px 0;
+                font-size: 16px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                transition: border-color 0.3s;
+            }
+    
+            #chatInput:focus {
+                border-color: #0056b3;
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+    
+            /* Keywords Button */
+            .keywords-button {
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-top: 10px;
+                transition: background-color 0.3s ease;
+                display: block;
+                width: calc(100% - 30px);
+                margin-left: 15px;
+            }
+    
+            .keywords-button:hover {
+                background-color: #218838;
+            }
+    
+            /* Popup styling */
+            .popup {
+                display: none;
+                position: fixed;
+                bottom: 100px;
+                right: 20px;
+                background: #fff;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                max-height: 250px;
+                overflow-y: auto;
+                padding: 10px;
+                width: 280px;
+                z-index: 1000;
+            }
+    
+            .popup .keyword {
+                padding: 8px;
+                cursor: pointer;
+                color: #4CAF50;
+                border-bottom: 1px solid #eee;
+                transition: background-color 0.2s;
+            }
+    
+            .popup .keyword:hover {
+                background-color: #f1f1f1;
+            }
+    
+            /* Suggestions */
+            .dropdown-suggestions {
+                position: absolute;
+                bottom: 60px;
+                width: calc(100% - 24px);
+                background-color: white;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                max-height: 100px;
+                overflow-y: auto;
+                display: none;
+                z-index: 999; /* Ensure suggestions appear above other elements */
+            }
+    
+            .dropdown-suggestions div {
+                padding: 8px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+    
+            .dropdown-suggestions div:hover {
+                background-color: #f4f4f9;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <!-- Chatbot Button -->
+    <div class="chatbot" onclick="toggleChat()">🤖</div>
+    
+    <style>
+    /* Chatbot button styling */
+    .chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: rotateIcon 2s linear infinite, pulse 1.5s ease-in-out infinite, bounce 3s ease-in-out infinite;
+    }
+    
+    /* Rotate animation */
+    @keyframes rotateIcon {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+    
+    /* Pulse animation */
+    @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    }
+    
+    /* Bounce animation */
+    @keyframes bounce {
+    0%, 100%, 20%, 50%, 80% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+    }
+    </style>
+    
+    <script>
+    function toggleChat() {
+    // Code to open and close your chatbot
+    alert("Chatbot toggle function clicked!");
+    }
+    </script>
+    
+    
+    <!-- Chat Window -->
+    <div id="chatWindow">
+        <div class="chat-header">UPS BOT</div>
+        <div id="chatBody"></div>
+        <input type="text" id="chatInput" placeholder="Type your message" onkeypress="handleKey(event)">
+        <button class="keywords-button" onclick="toggleKeywords()">Show Keywords</button>
+        <div id="suggestions" class="dropdown-suggestions"></div>
+    </div>
+    
+    <!-- Keywords Popup -->
+    <div id="keywordsPopup" class="popup">
+        <strong>Available Keywords:</strong>
+        <div id="keywordsList"></div>
+    </div>
+    
+    <script>
+    const keywords = [
+            "academic", "admission", "extracurricular", "activities", "facilities", "campus", 
+            "events", "calendar", "library", "career", "courses", "staff", "schedule", "enrollment", 
+            "tuition", "sports", "clubs", "transportation", "health", "nutrition", "guidance", 
+            "scholarships", "assessment", "reports", "parents", "communication", "volunteers", 
+            "workshops", "seminars", "tutoring", "mentoring", "students", "community service", 
+            "field trips", "performances", "arts", "theater", "music", "technology", "labs", 
+            "certifications", "graduation", "tuition assistance", "fees", "policies", "student life", 
+            "counseling","school"
+        ];
+    
+        const responses = {
+            "academic": "Our academic programs provide comprehensive education with a focus on critical thinking and real-world applications.",
+            "admission": "Admissions are open! Apply online or visit the admissions office for more info about our programs and requirements.",
+            "extracurricular": "We offer various extracurricular activities like sports, music, drama, and clubs that enhance student life.",
+            "facilities": "Our facilities include a library, science labs, computer labs, sports fields, and an art studio designed for creativity.",
+            "events": "We host events throughout the year, including cultural fests, sports meets, and community service initiatives.",
+            "calendar": "The academic calendar is available on our website, with all important dates for the semester, including holidays.",
+            "library": "Our library has thousands of books, journals, and digital resources, as well as study spaces for students.",
+            "career": "Our career guidance program helps students explore options, prepare resumes, and navigate job applications.",
+            "courses": "We offer a wide range of courses tailored to meet students' interests and needs, including advanced placement options.",
+            "staff": "Our experienced staff includes dedicated teachers, counselors, and support personnel who are here to help.",
+            "counseling": "Our counseling department provides support for mental health, academics, and personal issues, ensuring student well-being.",
+            "sports": "We have a vibrant sports program offering teams for basketball, soccer, volleyball, and track, among others.",
+            "clubs": "Join one of our many clubs! Options include debate club, science club, art club, and student government.",
+            "transportation": "We provide safe and reliable transportation services for all students, including bus routes across the region.",
+            "nutrition": "Our cafeteria offers healthy meal options, including vegetarian and vegan choices, to support student health.",
+            "tutoring": "We offer tutoring services for students needing extra help in subjects like math, science, and language arts.",
+            "scholarships": "Various scholarships are available for students based on merit, need, and specific talents or interests.",
+            "field trips": "Educational field trips are organized throughout the year to provide real-world learning experiences.",
+            "performances": "Our performing arts department hosts various shows, including theater productions and musical concerts.",
+            "technology": "We incorporate the latest technology into our classrooms, including interactive smart boards and computers.",
+            "parent_communication": "We prioritize communication with parents through newsletters, meetings, and our online portal.",
+            "community_service": "Students are encouraged to participate in community service, fostering a sense of responsibility and compassion.",
+            "workshops": "We conduct workshops on various topics, including college readiness, study skills, and mental health awareness.",
+            "mentoring": "Our mentoring program pairs students with faculty and senior students to provide guidance and support.",
+            "assessment": "Regular assessments and feedback help track student progress and tailor support to individual needs.",
+            "tuition": "Information about tuition fees, payment plans, and financial aid options can be found on our website.",
+            "policies": "Our school policies regarding attendance, behavior, and academic integrity are available in the student handbook.",
+            "student_life": "Our vibrant student life includes social events, leadership opportunities, and a supportive community.",
+            "certifications": "Students have the opportunity to earn certifications in various fields, enhancing their future career prospects.",
+            "graduation": "Graduation requirements include a minimum number of credits, participation in activities, and passing assessments.",
+            "alumni": "Our alumni network provides ongoing support and opportunities for current students through mentorship and resources.",
+            "fees" : "tell you latter. ",
+            "school" : "add this latter it just for a example "
+        };
+    
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.style.display = chatWindow.style.display === 'none' ? 'block' : 'none';
+        }
+    
+        function displayMessage(message, sender) {
+            const chatBody = document.getElementById('chatBody');
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('chat-message', sender);
+            msgDiv.innerHTML = message;
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            if (sender === 'bot') speak(message);
+        }
+    
+        function handleKey(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                if (message) {
+                    displayMessage(message, 'user');
+                    input.value = '';
+                    respondToMessage(message);
+                }
+            }
+        }
+    
+        function respondToMessage(message) {
+    const lowerCaseMessage = message.toLowerCase();
+    let response = "I'm sorry, I didn't understand that. Please try another question.";
+    
+    for (const keyword of keywords) {
+        if (lowerCaseMessage.includes(keyword)) {
+            response = responses[keyword] || response;
+            break; 
+        }
+    }
+    
+    displayMessage(response, 'bot');
+    }
+    
+    function toggleChat() {
+    const chatWindow = document.getElementById('chatWindow');
+    chatWindow.style.display = chatWindow.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    function displayMessage(message, sender) {
+    const chatBody = document.getElementById('chatBody');
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('chat-message', sender);
+    msgDiv.innerHTML = message;
+    chatBody.appendChild(msgDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    if (sender === 'bot') speak(message);
+    }
+    
+    function handleKey(event) {
+    if (event.key === 'Enter') {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if (message) {
+            displayMessage(message, 'user');
+            input.value = '';
+            respondToMessage(message);
+        }
+    }
+    }
+    
+    function respondToMessage(message) {
+    const lowerCaseMessage = message.toLowerCase();
+    let response = "I'm sorry, I didn't understand that. Please try another question.";
+    
+    for (const keyword of keywords) {
+        if (lowerCaseMessage.includes(keyword)) {
+            response = responses[keyword] || response;
+            break; 
+        }
+    }
+    
+    displayMessage(response, 'bot');
+    }
+    
+    function toggleKeywords() {
+    const popup = document.getElementById('keywordsPopup');
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    if (popup.style.display === 'block') {
+        const keywordsList = document.getElementById('keywordsList');
+        keywordsList.innerHTML = '';
+        keywords.forEach(keyword => {
+            const div = document.createElement('div');
+            div.classList.add('keyword');
+            div.innerText = keyword;
+            div.onclick = () => insertKeyword(keyword);
+            keywordsList.appendChild(div);
+        });
+    }
+    }
+    //this one is keyword automatically responds without get enater //
+    function insertKeyword(keyword) {
+    displayMessage(keyword, 'user');
+    toggleKeywords(); // Hide the popup after selecting a keyword
+    
+    // Add a slight delay before showing the bot's response
+    setTimeout(() => {
+        respondToMessage(keyword); // Display the bot response after keyword is shown as user message
+    }, 500); // Adjust the delay time as needed
+    }
+    
+    function showSuggestions() {
+    const input = document.getElementById('chatInput');
+    const suggestionsDiv = document.getElementById('suggestions');
+    const inputText = input.value.toLowerCase();
+    suggestionsDiv.innerHTML = '';
+    
+    
+    suggestionsDiv.style.display = suggestionsDiv.innerHTML ? 'block' : 'none';
+    }
+    
+    function selectSuggestion(keyword) {
+    const input = document.getElementById('chatInput');
+    input.value = keyword;
+    suggestionsDiv.style.display = 'none';
+    
+    // Display keyword as user message
+    displayMessage(keyword, 'user');
+    
+    // Trigger bot response
+    setTimeout(() => {
+        respondToMessage(keyword);
+    }, 500); // Delay to ensure natural flow
+    }
+    
+    // Add event listener for input field
+    document.getElementById('chatInput').addEventListener('input', showSuggestions);
+    
+    function speak(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
+    }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    </body>
+    </html>
+
+
+{% block content %}
+
+
+<!-- Scroll Container -->
+<div class="scroll-container">
+    <!-- Home Section -->
+    <section id="home" class="home-section">
+        <div class="overlay"></div>
+        <div class="content-container">
+            <h1>Welcome to <span style="color: #f2f2f3;">Unity Public School</span></h1>
+            <p>Your future begins here.</p>
+            <a href="#admission" class="learn-more-button">Learn More</a>
+        </div>
+        <svg class="curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1450 300">
+            <path fill="#ffffff" fill-opacity="1" d="M0,256L60,224C120,192,240,128,360,128C480,128,600,192,720,224C840,256,960,256,1080,224C1200,192,1320,128,1380,96L1440,64L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+        </svg>
+    </section>
+
+{% endblock %}
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

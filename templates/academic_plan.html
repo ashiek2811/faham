@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Academic Plan Section with Video Background -->
+<section id="academic-plan" class="academic-plan-section">
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="bg-video" class="video-background">
+            <source src="https://videos.pexels.com/video-files/3130284/3130284-uhd_2560_1440_30fps.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Content Section Over the Video -->
+    <div class="content-container">
+        <div class="section-header text-center">
+            <h1 class="display-4 text-light">Academic Excellence</h1>
+            <p class="lead text-light">Our academic plan focuses on holistic development and fostering critical thinking through innovative approaches.</p>
+        </div>
+
+        <!-- Academic Plan Details -->
+        <div class="plan-details">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Step 1: Curriculum Design</h3>
+                    <p>Our curriculum emphasizes a hands-on approach to learning with real-world applications.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3>Step 2: Interactive Learning</h3>
+                    <p>We use modern educational tools to make learning interactive and engaging for students.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
